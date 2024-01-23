@@ -1,7 +1,7 @@
 use once_cell::sync::Lazy;
+use secrecy::ExposeSecret;
 use sqlx::{Executor, PgPool};
 use std::net::TcpListener;
-use secrecy::ExposeSecret;
 use uuid::Uuid;
 use zero2prod::configuration::{get_configuration, DatabaseSettings};
 use zero2prod::telemetry;
