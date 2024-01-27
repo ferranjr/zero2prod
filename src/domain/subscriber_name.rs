@@ -4,11 +4,10 @@ use unicode_segmentation::UnicodeSegmentation;
 pub struct SubscriberName(String);
 
 impl SubscriberName {
-
     pub fn parse(s: String) -> Result<SubscriberName, String> {
         let is_empty_or_whitespace = s.trim().is_empty();
         let is_too_long = s.graphemes(true).count() > 256;
-        let forbidden_characters = ['/','(',')','"', '<','>','\\','{','}'];
+        let forbidden_characters = ['/', '(', ')', '"', '<', '>', '\\', '{', '}'];
         let contains_forbidden_characters = s.chars().any(|g| forbidden_characters.contains(&g));
 
         if is_empty_or_whitespace || is_too_long || contains_forbidden_characters {
@@ -27,8 +26,8 @@ impl AsRef<str> for SubscriberName {
 
 #[cfg(test)]
 mod tests {
-    use claims::{assert_err, assert_ok};
     use crate::domain::subscriber_name::SubscriberName;
+    use claims::{assert_err, assert_ok};
 
     #[test]
     fn a_256_grapheme_long_name_is_valid() {
@@ -56,7 +55,7 @@ mod tests {
 
     #[test]
     fn names_containing_an_invalid_character_are_rejected() {
-        for name in &['/', '(', ')', '"', '<', '>','\\','{','}'] {
+        for name in &['/', '(', ')', '"', '<', '>', '\\', '{', '}'] {
             let name = name.to_string();
             assert_err!(SubscriberName::parse(name));
         }
