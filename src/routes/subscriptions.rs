@@ -57,7 +57,7 @@ pub async fn subscribe(
         .context("Failed to acquired a Postgres connection from the pool")?;
     let subscriber_id = insert_subscriber(&mut transaction, &new_subscriber)
         .await
-        .context("Failed to insert new subscriber in the databse")?;
+        .context("Failed to insert new subscriber in the database")?;
     let subscription_token = generate_subscription_token();
     store_token(&mut transaction, subscriber_id, &subscription_token)
         .await
@@ -100,7 +100,7 @@ impl ResponseError for SubscribeError {
     }
 }
 
-fn error_chain_fmt(
+pub fn error_chain_fmt(
     e: &impl std::error::Error,
     f: &mut std::fmt::Formatter<'_>,
 ) -> std::fmt::Result {
