@@ -1,8 +1,8 @@
-use sqlx::PgPool;
 use crate::telemetry::spawn_blocking_with_tracing;
 use anyhow::Context;
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
-use secrecy::{Secret, ExposeSecret};
+use secrecy::{ExposeSecret, Secret};
+use sqlx::PgPool;
 
 #[derive(thiserror::Error, Debug)]
 pub enum AuthError {
@@ -16,7 +16,6 @@ pub struct Credentials {
     pub username: String,
     pub password: Secret<String>,
 }
-
 
 #[tracing::instrument(name = "Validate credentials", skip(credentials, pool))]
 pub async fn validate_credentials(
@@ -32,8 +31,7 @@ pub async fn validate_credentials(
     );
 
     if let Some((stored_user_id, stored_password_hash)) =
-        get_stored_credentials(&credentials.username, pool)
-            .await?
+        get_stored_credentials(&credentials.username, pool).await?
     {
         user_id = Some(stored_user_id);
         expected_password_hash = stored_password_hash;
@@ -42,18 +40,17 @@ pub async fn validate_credentials(
     spawn_blocking_with_tracing(move || {
         verify_password_hash(expected_password_hash, credentials.password)
     })
-        .await
-        .context("Failed to spawn blocking task.")??;
+    .await
+    .context("Failed to spawn blocking task.")??;
 
     user_id
         .ok_or_else(|| anyhow::anyhow!("Unknown username."))
         .map_err(AuthError::InvalidCredentials)
 }
 
-
 #[tracing::instrument(
-name = "Verify password hash",
-skip(expected_password_hash, password_candidate)
+    name = "Verify password hash",
+    skip(expected_password_hash, password_candidate)
 )]
 pub fn verify_password_hash(
     expected_password_hash: Secret<String>,
@@ -83,9 +80,9 @@ pub async fn get_stored_credentials(
             "#,
         username,
     )
-        .fetch_optional(pool)
-        .await
-        .context("Failed to perform a query to retrieve stored credentials")?
-        .map(|row| (row.user_id, Secret::new(row.password_hash)));
+    .fetch_optional(pool)
+    .await
+    .context("Failed to perform a query to retrieve stored credentials")?
+    .map(|row| (row.user_id, Secret::new(row.password_hash)));
     Ok(row)
 }

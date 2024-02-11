@@ -1,3 +1,4 @@
+use crate::authentication::{validate_credentials, AuthError, Credentials};
 use crate::domain::SubscriberEmail;
 use crate::email_client::EmailClient;
 use crate::routes::error_chain_fmt;
@@ -12,7 +13,6 @@ use reqwest::header;
 use secrecy::Secret;
 use sqlx::PgPool;
 use std::fmt::Formatter;
-use crate::authentication::{validate_credentials, AuthError, Credentials};
 
 #[derive(serde::Deserialize)]
 pub struct BodyData {
@@ -61,7 +61,6 @@ fn basic_authentication(headers: &HeaderMap) -> Result<Credentials, anyhow::Erro
         password: Secret::new(password),
     })
 }
-
 
 #[derive(thiserror::Error)]
 pub enum PublishError {
@@ -135,7 +134,7 @@ pub async fn publish_newsletter(
         .await
         .map_err(|e| match e {
             AuthError::InvalidCredentials(_) => PublishError::AuthError(e.into()),
-            AuthError::UnexpectedError(_) => PublishError::UnexpectedError(e.into())
+            AuthError::UnexpectedError(_) => PublishError::UnexpectedError(e.into()),
         })?;
     tracing::Span::current().record("user_id", &tracing::field::display(&user_id));
     let subscribers = get_confirmed_subscribers(&pool).await?;
