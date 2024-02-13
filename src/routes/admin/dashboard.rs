@@ -25,14 +25,23 @@ pub async fn admin_dashboard(
         <title>Admin dashboard</title>
     </head>
     <body>
-        <p>Welcome {username}</p>
+        <p>Welcome {username}!</p>
+        <p>Available actions:</p>
+        <ol>
+            <li><a href="/admin/password">Change password</a></li>
+            <li>
+                <form name="logoutForm" action="/admin/logout" method="post">
+                    <input type="submit" value="logout">
+                </form>
+            </li>
+        </ol>
     </body>
 </html>
             "#
         )))
 }
 
-async fn get_username(user_id: Uuid, pool: &PgPool) -> Result<String, anyhow::Error> {
+pub async fn get_username(user_id: Uuid, pool: &PgPool) -> Result<String, anyhow::Error> {
     let row = sqlx::query!(
         r#"
         SELECT username
