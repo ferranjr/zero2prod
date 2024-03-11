@@ -32,7 +32,7 @@ validator = "0.16.1"
 rand = { version = "0.8.5", features = ["std_rng"]}
 thiserror = "1.0.56"
 anyhow = "1.0.80"
-base64 = { version = "0.21.7", features = [] }
+base64 = { version = "0.22.0", features = [] }
 sha3 = "0.10"
 argon2 = { version = "0.6.0-pre.0", features = ["std"] }
 urlencoding = "2.1.3"
