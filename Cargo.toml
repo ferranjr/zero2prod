@@ -41,7 +41,7 @@ actix-web-flash-messages = { version = "0.4.2", features = ["cookies"] }
 actix-session = { version = "0.9.0", features = ["redis-rs-tls-session"] }
 
 [dependencies.sqlx]
-version = "0.7.3"
+version = "0.7.4"
 default-features = false
 features = [
     "runtime-tokio-rustls",
