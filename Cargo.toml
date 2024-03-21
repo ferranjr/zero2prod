@@ -30,7 +30,7 @@ secrecy = { version = "0.8.0" , features = ["serde"]}
 unicode-segmentation = "1.11.0"
 validator = "0.16.1"
 rand = { version = "0.8.5", features = ["std_rng"]}
-thiserror = "1.0.56"
+thiserror = "1.0.58"
 anyhow = "1.0.81"
 base64 = { version = "0.22.0", features = [] }
 sha3 = "0.10"
