@@ -64,7 +64,7 @@ quickcheck = "1.0.3"
 quickcheck_macros = "1.0.0"
 rand = "0.8.5"
 tokio = { version = "1.36.0", features = ["rt", "macros"]}
-wiremock = "0.6.0"
+wiremock = "0.6.2"
 serde_json = "1.0.114"
 linkify = "0.10.0"
 serde_urlencoded = "0.7.1"
