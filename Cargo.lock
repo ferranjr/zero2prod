@@ -35,7 +35,7 @@ dependencies = [
  "brotli",
  "bytes",
  "bytestring",
- "derive_more",
+ "derive_more 0.99.18",
  "encoding_rs",
  "flate2",
  "futures-core",
@@ -131,7 +131,7 @@ dependencies = [
  "actix-utils",
  "actix-web",
  "anyhow",
- "derive_more",
+ "derive_more 0.99.18",
  "rand",
  "redis",
  "serde",
@@ -169,7 +169,7 @@ dependencies = [
  "bytestring",
  "cfg-if",
  "cookie 0.16.2",
- "derive_more",
+ "derive_more 0.99.18",
  "encoding_rs",
  "futures-core",
  "futures-util",
@@ -221,9 +221,9 @@ dependencies = [
 
 [[package]]
 name = "actix-web-lab"
-version = "0.21.0"
+version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "993cb5477d926300f11d7daede86368dbf797ccae3564aadfb41cb5b3aee2d23"
+checksum = "2a965e3e826aa4737af33666aa09ed949aa1837706fda2adee07039347be50d6"
 dependencies = [
  "actix-http",
  "actix-router",
@@ -236,7 +236,8 @@ dependencies = [
  "bytes",
  "bytestring",
  "csv",
- "derive_more",
+ "derive_more 1.0.0",
+ "form_urlencoded",
  "futures-core",
  "futures-util",
  "http 0.2.12",
@@ -251,6 +252,7 @@ dependencies = [
  "serde",
  "serde_html_form",
  "serde_json",
+ "serde_path_to_error",
  "tokio",
  "tokio-stream",
  "tracing",
@@ -258,9 +260,9 @@ dependencies = [
 
 [[package]]
 name = "actix-web-lab-derive"
-version = "0.21.0"
+version = "0.22.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5aa1bc8506ff10e35419d82d2502e182b94bafa1a68f5651e8e1e6c6717fe1d3"
+checksum = "008f98f5a68eeacf5e6d44ed74ce03c1b906baa53eabfb41faf0f5f40bd685f8"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -877,6 +879,27 @@ dependencies = [
  "quote",
  "rustc_version",
  "syn 2.0.77",
+]
+
+[[package]]
+name = "derive_more"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4a9b99b9cbbe49445b21764dc0625032a89b145a2642e67603e1c936f5458d05"
+dependencies = [
+ "derive_more-impl",
+]
+
+[[package]]
+name = "derive_more-impl"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cb7330aeadfbe296029522e6c40f315320aba36fc43a5b3632f3795348f3bd22"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.77",
+ "unicode-xid",
 ]
 
 [[package]]
@@ -2538,6 +2561,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde_path_to_error"
+version = "0.1.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "af99884400da37c88f5e9146b7f1fd0fbcae8f6eec4e9da38b67d05486f814a6"
+dependencies = [
+ "itoa",
+ "serde",
+]
+
+[[package]]
 name = "serde_urlencoded"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3274,6 +3307,12 @@ name = "unicode-segmentation"
 version = "1.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d4c87d22b6e3f4a18d4d40ef354e97c90fcb14dd91d7dc0aa9d8a1172ebf7202"
+
+[[package]]
+name = "unicode-xid"
+version = "0.2.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "229730647fbc343e3a80e463c1db7f78f3855d3f3739bee0dda773c9a037c90a"
 
 [[package]]
 name = "unicode_categories"
